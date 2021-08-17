@@ -1,0 +1,350 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+:root {
+  --apple-red: #BD4858;
+  --dark: #393939;
+  --mid:  #ddd;;
+  --light: #fff;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  font-family: Rakkas, cursive;
+  font-weight: normal;
+  font-size: 16px;
+  background-color: var(--dark);
+}
+
+h1 {
+  font-size: 3rem;
+  margin: 0;
+  text-align: center;
+  color: var(--dark);
+}
+
+#container {
+  width: 100%;
+  background-color: var(--light);
+  background: url(images/white_plaster.png);
+  display: grid;
+  grid-template: 
+    80px 75vw 100px auto / 
+    auto 25vw 25vw 25vw auto ;
+  grid-template-areas: 
+    ". . A . ."
+    ". B B B ."
+    ". C D E ."
+    ". . . . ."
+  ;
+}
+
+header { grid-area: A; }
+#snake-grid { grid-area: B; }
+.score-area { grid-area: C; }
+.info-area { grid-area: D; }
+.start-area { grid-area: E; }
+
+header {
+  display: grid;
+  place-content: center;
+}
+
+#snake-grid {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: var(--light);
+  border-radius: 1em;
+}
+
+.score-area,
+.info-area,
+.start-area{
+  display: flex;
+  position: relative;
+  justify-content: center; 
+  align-items: center;
+}
+
+.score-area::after {
+  display: none;
+}
+
+#score,
+#start-btn,
+#info-btn {
+  display: grid;
+  place-content: center; 
+  border-radius: 50%;
+  margin: 0;
+}
+
+#score,
+#start-btn {
+  width: 72px;
+  height: 72px;
+  color: var(--mid);
+}
+
+#score {
+  font-size: 2rem;
+  background-color: var(--apple-red);
+}
+
+.score-pop {
+  transform-origin: center center;
+  animation: pop 0.2s ; 
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.1);  }
+  100% { transform: scale(1); }
+}
+
+#start-btn {
+  background-color: var(--dark);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+#start-btn:hover {
+  color: var(--light);
+  transform: scale(1.05);
+}
+
+#info-btn, #close-btn {
+  color: var(--dark);
+  border: 2px solid var(--dark);
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+#info-btn:hover,
+#close-btn:hover {
+  opacity: 1;
+}
+
+#info-btn {
+  font-family: Rakkas, cursive;
+  font-size: 1.75rem;
+  width: 48px;
+  height: 48px;
+  margin: 0;
+}
+
+#info-overlay {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0,0,0, 0.7);
+  z-index: 10;
+}
+
+#info-modal {
+  background-color: var(--light);
+  background: url(images/white_plaster.png);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 0 2em;
+  position: relative;
+  top: 25%;
+  z-index: 20;
+  font-family: 'Roboto Slab', serif;
+}
+
+#close-btn {
+  font-size: 1rem;
+  width: 160px;
+  display: block;
+  margin: 3em auto 0.5em;
+  padding: 0.5em;
+  border-radius: 8px;
+  font-family: 'Roboto Slab', serif;
+}
+
+/* --------------------------------- */
+
+@media (min-width: 560px) {
+  #container {
+    margin: 1em;
+    width: calc(100% - 2em);
+    height: calc(100vh - 2em);
+    min-height: 620px;
+    border-radius: 16px;
+    grid-template: 
+      80px 420px 100px auto / 
+      auto 140px 140px 140px auto;
+      grid-template-areas: 
+      ". . A . ."
+      ". B B B ."
+      ". C D E ."
+      ". . . . ."
+    ;
+  }
+  
+  #info-modal {
+    max-width: 500px;
+    padding: 40px;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 760px) {
+  #container {
+    margin: 2.5em;
+    width: calc(100% - 5em);
+    height: calc(100vh - 5em);
+    min-height: 700px;
+    grid-template: 
+      130px 20vw 20vw auto / 
+      auto 180px 20vw 20vw 180px auto ;
+    grid-template-areas: 
+      ". . A A . ."
+      ". C B B E ."
+      ". . B B D ."
+      ". . . . . ."
+    ;
+  }
+  
+  h1 {
+    font-size: 4rem;
+  }
+ 
+  #score,
+  #start-btn {
+    width: 138px;
+    height: 138px;
+  }
+
+  #score {
+    font-size: 4.5rem;
+  }
+
+  #start-btn {
+    font-size: 2.25rem;
+  }
+  
+  #info-btn {
+    align-self: flex-start;
+  }
+  
+  #info-modal {
+    max-width: 700px;
+  }
+
+}
+
+@media (min-width: 960px) {
+  #container {
+    grid-template: 
+      100px 250px 250px auto / 
+      auto 200px 250px 250px 200px auto ;
+    grid-template-areas: 
+      ". . A A . ."
+      ". C B B E ."
+      ". . B B D ."
+      ". . . . . . "
+    ;
+  }
+}
+
+.square {
+  width: 10%;
+  height: 10%;
+}
+
+/* ------------------- */
+.snake-head-north,
+.snake-head-east,
+.snake-head-south,
+.snake-head-west {
+  background-image: url('images/snake-head.svg');
+}
+
+.snake-head-north {transform: rotate(180deg);}
+.snake-head-east {transform: rotate(-90deg);}
+.snake-head-south {transform: rotate(0deg);}
+.snake-head-west {transform: rotate(90deg);}
+
+.snake-head-north-dead,
+.snake-head-east-dead,
+.snake-head-south-dead,
+.snake-head-west-dead {
+  background-image: url('images/snake-head-dead.svg');
+}
+
+.snake-head-north-dead {transform: rotate(180deg);}
+.snake-head-east-dead { transform: rotate(-90deg);}
+.snake-head-south-dead {transform: rotate(0deg);}
+.snake-head-west-dead {transform: rotate(90deg);}
+
+.snake-vertical,
+.snake-horizontal {
+  background-image: url('images/snake-body.svg');
+}
+
+.snake-vertical {transform: rotate(0deg);}
+.snake-horizontal {transform: rotate(90deg);}
+
+.snake-neck-nw,
+.snake-neck-ne,
+.snake-neck-se ,
+.snake-neck-sw {
+  background-image: url('images/snake-turn.svg');
+}
+
+.snake-neck-nw {transform: rotate(0deg);}
+.snake-neck-ne {transform: rotate(90deg);}
+.snake-neck-se {transform: rotate(180deg);}
+.snake-neck-sw {transform: rotate(-90deg);}
+
+.snake-tail-n,
+.snake-tail-e,
+.snake-tail-s,
+.snake-tail-w {
+  background-image: url('images/snake-tail.svg');
+}
+
+.snake-tail-n {transform: rotate(0deg);}
+.snake-tail-s {transform: rotate(180deg);}
+.snake-tail-e {transform: rotate(90deg);}
+.snake-tail-w {transform: rotate(-90deg);}
+
+.apple {
+  background-image: url('images/apple.svg');
+}
+
+.rumble {
+  transform-origin: center center;
+  animation: rumble 0.5s;
+}
+
+@keyframes rumble {
+  0% { transform: rotate(0deg); }
+  10% { transform: rotate(-2deg); }
+  20% { transform: rotate(2deg); }
+  30% { transform: rotate(0deg); }
+  40% { transform: rotate(2deg); }
+  50% { transform: rotate(-2deg); }
+  60% { transform: rotate(0deg); }
+  70% { transform: rotate(-2deg); }
+  80% { transform: rotate(2deg); }
+  90% { transform: rotate(0deg); }
+  100% { transform: rotate(-2deg); }
+}
